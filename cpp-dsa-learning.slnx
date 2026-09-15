@@ -4,6 +4,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="03-constant-type-conversion/03-constant-type-conversion.vcxproj" Id="205f8273-f99c-467b-8f1a-da4936ad838f" />
-  <Project Path="testProject1/testProject1.vcxproj" Id="f7777c84-d4b4-41f0-8c0c-5eadae54acf4" />
-  <Project Path="test_dataType/test_dataType.vcxproj" Id="f02ef8d1-7b98-4072-9313-a667997e511c" />
+  <Project Path="01-char-string-and-ASCII/testProject1.vcxproj" Id="f7777c84-d4b4-41f0-8c0c-5eadae54acf4" />
+<Project Path="02-dataType/test_dataType.vcxproj" Id="f02ef8d1-7b98-4072-9313-a667997e511c" />
 </Solution>
