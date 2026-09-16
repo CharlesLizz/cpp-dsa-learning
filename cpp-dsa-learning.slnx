@@ -3,8 +3,8 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-
   <Project Path="01-char-string-and-ASCII/01-char-string-and-ASCII.vcxproj" Id="f7777c84-d4b4-41f0-8c0c-5eadae54acf4" />
   <Project Path="02-dataType/02-dataType.vcxproj" Id="f02ef8d1-7b98-4072-9313-a667997e511c" />
   <Project Path="03-constant-type-conversion/03-constant-type-conversion.vcxproj" Id="205f8273-f99c-467b-8f1a-da4936ad838f" />
+  <Project Path="04-printf-scanf/04-printf-scanf.vcxproj" Id="99d20e93-a5b4-411f-a2b7-6d38f63c3723" />
 </Solution>
