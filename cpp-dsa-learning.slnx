@@ -8,4 +8,5 @@
   <Project Path="03-constant-type-conversion/03-constant-type-conversion.vcxproj" Id="205f8273-f99c-467b-8f1a-da4936ad838f" />
   <Project Path="04-printf-scanf/04-printf-scanf.vcxproj" Id="99d20e93-a5b4-411f-a2b7-6d38f63c3723" />
   <Project Path="05-operator/05-operator.vcxproj" Id="1983553a-19e4-4f7c-8a98-4bd469f39723" />
+  <Project Path="06-sequential-and-if/06-sequential-and-if.vcxproj" Id="ab7cd6aa-a70e-4418-a336-f797a29ce797" />
 </Solution>
