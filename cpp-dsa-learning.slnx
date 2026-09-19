@@ -10,4 +10,5 @@
   <Project Path="05-operator/05-operator.vcxproj" Id="1983553a-19e4-4f7c-8a98-4bd469f39723" />
   <Project Path="06-sequential-and-if/06-sequential-and-if.vcxproj" Id="ab7cd6aa-a70e-4418-a336-f797a29ce797" />
   <Project Path="07-switch/07-switch.vcxproj" Id="e306d7a6-a1c1-47f4-b35f-244237e15984" />
+  <Project Path="08-loop/08-loop.vcxproj" Id="1d6f25ca-536c-4ee4-bb26-4b05a2c7d2d4" />
 </Solution>
