@@ -204,5 +204,91 @@ int main()
 	printf("\n");
 
 
+
+
+
+	/*
+		二维数组
+	*/
+
+	//二维数组的创建和初始化 以及下标
+
+	//完全初始化
+	int array1[2][3] = { 1,2,3,4,5,6 };	//array[0][1]=2;
+
+	int array2[2][3] = { {1,2,3},{4,5,6} };
+
+	int array3[2][3] = { {1,2,3},{4} };//未初始化的元素为0
+
+	//C语言中，可以省略行，但是不能省略列
+	//前者是行，后者是列
+	int array4[][3] = { 1,2,3,4,5,6 };
+
+	printf("\n");
+	//打印二维数组array1
+	for (int i = 0;i < 2; i++)
+	{
+		for (int j = 0;j < 3;j++)
+		{
+			printf("array1[%d][%d] = %d \n", i, j, array1[i][j]);
+		}
+	}
+	printf("\n");
+
+	//二维数组的内存也是连续的
+	//case 1 :矩阵置换
+
+	int array[3][3] = { {1,2,3},{4,5,6},{7,8,9} };
+
+
+
+	//方法一
+	/*
+	int temp[3][3];
+	for (int i = 0;i < 3;i++)
+	{
+		for (int j = 0;j < 3;j++)
+		{
+			temp[j][i] = array[i][j];
+		}
+	}
+	
+	//输出
+	for (int i = 0;i < 3; i++)
+	{
+		for (int j = 0;j < 3;j++)
+		{
+			printf("array[%d][%d] = %d ", i, j, temp[i][j]);
+		}
+		printf("\n");
+	}
+	
+	*/
+
+	//方法二
+	for (int i = 0;i < 3;i++)
+	{
+		for (int j = i + 1;j < 3;j++)
+		{
+			int temp = array[i][j];
+			array[i][j] = array[j][i];
+			array[j][i] = temp;
+
+		}
+	}
+	//输出
+	for (int i = 0;i < 3; i++)
+	{
+		for (int j = 0;j < 3;j++)
+		{
+			printf("array[%d][%d] = %d ", i, j, array[i][j]);
+		}
+		printf("\n");
+	}
+
+
+	
+
 	return 0;
 }
+
