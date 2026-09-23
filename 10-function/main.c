@@ -80,11 +80,59 @@ int main()
 
 
 
+	//章节习题
+	//！此处题目要求两个数列均有序，要求n,m大于0，小于1000位
+
+	int n;
+	int m;
+	scanf_s("%d %d", &n, &m);
+	int Arr1[1000];
+	int Arr2[1000];
 
 
+	//输入n个元素到Arr1中
+	printf("输入n个元素到Arr1中\n");
+	for (int i = 0;i < n;i++)
+	{
+		scanf_s("%d", &Arr1[i]);
+	}
+
+	//输入n个元素到Arr2中
+	printf("输入m个元素到Arr2中\n");
+	for (int i = 0;i < m;i++)
+	{
+		scanf_s("%d", &Arr2[i]);
+	}
 
 
-
+	//1、保证两个数组都有元素
+	int i = 0;
+	int j = 0;
+	//两个数组都有数的时候执行这个while
+	while (i < n && j < m)
+	{
+		if (Arr1[i] < Arr2[j])
+		{
+			printf("%d ", Arr1[i]);
+			i++;
+		}
+		else
+		{
+			printf("%d ", Arr2[j]);
+			j++;
+		}
+	}
+	//任一执行结束，判断i和j谁有剩余
+	while (i < n)
+	{
+		printf("%d ", Arr1[i]);
+		i++;
+	}
+	while (j < m)
+	{
+		printf("%d ", Arr2[j]);
+		j++;
+	}
 
 
 	return 0;
@@ -161,7 +209,20 @@ void set_arr(int arr[], int len, int val)
 
 /*
 
-	函数的实参是数组，形参也可以写成数组形式
+	数组作为函数参数时，可以直接使用数组名作为实参：
+
+	set_arr(arr, len, -1);
+
+	形参可以写成：
+	void set_arr(int arr[], int len, int val)
+
+	也可以写成：
+	void set_arr(int *arr, int len, int val)
+
+	对于一维数组参数，这两种写法在这里等价。
+
+
+
 
 	形参如果是一维数组，数组大小可以忽略不写
 
