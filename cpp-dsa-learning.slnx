@@ -13,4 +13,5 @@
   <Project Path="08-loop/08-loop.vcxproj" Id="1d6f25ca-536c-4ee4-bb26-4b05a2c7d2d4" />
   <Project Path="09-array/09-array.vcxproj" Id="97f3e85e-6c55-484c-a903-e68319031026" />
   <Project Path="10-function/10-function.vcxproj" Id="8d454b87-ddf6-40c6-b0e3-a080dd011019" />
+  <Project Path="11-static/11-static.vcxproj" Id="2b075f40-3824-4b34-b6df-85eb207226df" />
 </Solution>
