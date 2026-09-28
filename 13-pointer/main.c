@@ -16,7 +16,9 @@
 //Q2:怎么存储一个变量的地址
 //A2:int* p以为，p是存放的int类型变量的地址
 
-
+int* func();
+void swap1(int a, int b);
+void swap2(int* px, int* py);
 
 
 int main()
@@ -56,9 +58,9 @@ int main()
 	int a = 100;
 	int* pi = &a;
 	printf("下方用于输出指针大小\n");
-	printf("%d\n", sizeof(pc));
-	printf("%d\n", sizeof(psh));
-	printf("%d\n", sizeof(pi));
+	printf("%zu\n", sizeof(pc));
+	printf("%zu\n", sizeof(psh));
+	printf("%zu\n", sizeof(pi));
 
 	//由上可知，在64位系统中，理论寻址空间为8字节；即64比特位
 	//在32位系统中，理论寻址空间为4字节；即32比特位
@@ -149,12 +151,124 @@ int main()
 	/*
 	=============================野指针==========================
 	*/
+	//野指针就是，指针指向的位置是不可知的（随机的、不正确的、没有明确限制的）
+	//野指针成因：
+	//1、指针未初始化
+
+	/*
+	//case，此时p4未初始化，属于野指针
+
+	int* p4;
+	*p4 = 20;
+	printf("*p4 = %d\n", *p4);
+
+	*/
+
+	//2、指针越界访问
+
+	int arr1[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	int* p5 = &arr[10];
+	printf("*p5 = %d\n", *p5);
+
+
+	//3、指针超出作用域，指针指向的变量已经超出其生命周期
+
+	int* ret = func();//ret是一个野指针，没有意义了，因为内存已经被释放了
+	printf("ret = %d\n", *ret);
+
+
+	//4、
+
+	/*
+	留待动态内存分配部分学习
+	*/
+
+
+	/*
+	=============================如何避免野指针==========================
+	*/
+	//指针初始化
+	//如果不知道指针应该指向哪里，可以先给指针赋值NULL
+
+
+	/*
+	int *p;          → 未初始化，值不确定 → 可能成为野指针
+	int *p = NULL;   → 明确表示暂时不指向有效对象
+	int *p = &a;     → 指向有效对象
+	*/
+
+	/*
+	=============================指针传参==========================
+	*/
+
+	//Q:为什么使用指针传参？
+	//A:
+
+	int x = 10;
+	int y = 20;
+	printf("x = %d, y = %d\n", x, y);
+	swap2(&x, &y);
+	printf("x = %d, y = %d\n", x, y);
+
+
+	//case 1:
+	unsigned long pulArray[] = { 6,7,8,9,10 };
+	unsigned long* pulPtr;
+
+	//等同于pulPtr = &pulArray[0];
+	pulPtr = pulArray;
+
+	*(pulPtr + 3) += 3;
+	printf("%d, %d\n", *pulPtr, *(pulPtr + 3));
+
+
+	//case 2:
+	int crr[] = { 1,2,3,4,5 };
+	short* sp = (short*)crr;
+	for (int i = 0;i < 4;i++)
+	{
+		*(sp + i) = 0;
+	}
+	for (int i = 0;i < 5;i++)
+	{
+		printf("%d ", crr[i]);
+	}
 
 
 
 
 	return 0;
 }
+
+
+
+
+//此处交换的是a，b的值，不是x，y的值
+//ab是形参，ab和xy只是数值相同，修改时并未修改实参
+
+/*
+void swap1(int a, int b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+*/
+void swap2(int* px, int* py)
+{
+	int temp = *px;
+	*px = *py;
+	*py = temp;
+}
+
+
+int* func()
+{
+
+	int a = 10;//局部变量
+	return &a;//内存被回收、释放
+}
+
 
 
 
