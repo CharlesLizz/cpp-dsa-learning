@@ -215,6 +215,7 @@ int main()
 	unsigned long pulArray[] = { 6,7,8,9,10 };
 	unsigned long* pulPtr;
 
+	//数组名：表示数组首元素的地址，比如下面
 	//等同于pulPtr = &pulArray[0];
 	pulPtr = pulArray;
 
@@ -233,6 +234,16 @@ int main()
 	{
 		printf("%d ", crr[i]);
 	}
+
+	/*
+	=============================数组与指针详解==========================
+	*/
+
+	//1、数组和指针
+	//1.1、理解数组名
+	//数组名：表示数组首元素的地址，eg. pulPtr = &pulArray[0]
+
+
 
 
 
