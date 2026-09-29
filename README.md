@@ -63,8 +63,6 @@ C/C++ 基础
 ├── 12-recursion
 │
 ├── 13-pointer
-│   ├── ...
-│   └── 共 11 节视频
 │
 ├── 14-string-function
 │
