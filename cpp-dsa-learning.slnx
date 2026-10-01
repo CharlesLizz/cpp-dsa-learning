@@ -16,4 +16,5 @@
   <Project Path="11-static/11-static.vcxproj" Id="2b075f40-3824-4b34-b6df-85eb207226df" />
   <Project Path="12-recursion/12-recursion.vcxproj" Id="2e59efc7-206e-4281-bed4-c3afbc840865" />
   <Project Path="13-pointer/13-pointer.vcxproj" Id="fec6cb38-e444-4c2c-b096-02d5e38a0e52" />
+  <Project Path="14-string-function/14-string-function.vcxproj" Id="62118896-a3ea-42c8-8064-f52d650919d8" />
 </Solution>
