@@ -5,11 +5,16 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <assert.h>
 /*
 	ctype库简单学习、了解
 */
 
 void count(char crr[], int len);
+size_t my_strlen(const char* str);
+char* my_strcpy(char* destination, const char* source);
+char* my_strcpy2(char* destination, const char* source);
+char* my_strcat(char* dest, const char* src);
 
 int main()
 {
@@ -144,16 +149,118 @@ int main()
 
 
 
+	//case :1 
+	//模拟实现strlen函数
+	char* test_str = "";
+	printf("模拟实现strlen函数\n");
+	printf("%zu\n", my_strlen(test_str));
 
 
 
+	//case 2:
+	//模拟实现strcpy函数
+	char dest3[15];
+	const char* src3 = "abcdef";
+	char* ret3 = my_strcpy(dest3, src3);
+	printf("%s\n", ret3);
 
+
+	//case 3:
+	//模拟实现strcat
+
+	char dest4[15] = { "hello" };
+	my_strcat(dest4, src3);
+	printf("%s\n", dest4);
 
 
 
 
 	return 0;
 }
+
+
+//模拟实现strcat
+char* my_strcat(char* dest, const char* src)
+{
+
+	assert(dest != NULL);
+	assert(src != NULL);
+	char* tmp = dest;
+
+	while (*dest != '\0')
+	{
+		dest++;
+	}
+	while (*dest++ = *src++);
+
+	return tmp;
+
+}
+
+
+
+
+
+
+//模拟实现strcpy函数
+char* my_strcpy(char* destination, const char* source)
+{
+	assert(destination != NULL);
+	assert(source != NULL);
+
+	char* temp = destination;
+	while (*source != '\0')
+	{
+		*destination = *source;
+		source++;
+		destination++;
+	}
+	*destination = '\0';
+
+	return temp;
+}
+//写法2
+char* my_strcpy2(char* destination, const char* source)
+{
+	assert(destination != NULL);
+	assert(source != NULL);
+
+	char* temp = destination;
+
+	while (*destination++ = *source++)
+	{
+
+	}
+
+	return temp;
+}
+
+//模拟实现strlen函数
+size_t my_strlen(const char* str)
+{
+
+	size_t len = 0;
+	//断言，仅debug模式生效，release模式不生效
+	assert(str != NULL);
+
+	if (str == NULL)
+	{
+		return 0;
+	}
+
+	while (*str != '\0')
+	{
+		len++;
+		str++;
+	}
+
+
+	return len;
+}
+
+
+
+
 
 void count(char crr[], int len)
 {
