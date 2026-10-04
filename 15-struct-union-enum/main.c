@@ -66,6 +66,14 @@ union Un1
 };
 
 
+enum Day
+{
+	Mon = 1, Tues, Wed, Thur, Fri, Sat, Sun
+};
+enum Color
+{
+	Red, Blue, Green
+};
 
 
 
@@ -148,7 +156,7 @@ int main()
 	*/
 
 	int n = 0x11223344;
-	char* pc = (char*) & n;
+	char* pc = (char*)&n;
 	printf("%p\n", (void*)*pc);
 
 
@@ -159,8 +167,24 @@ int main()
 	*/
 
 	union Un1 un2;
-	un2.i= 0x11223344;
-	printf("%p\n", (void*) un2.c[0]);
+	un2.i = 0x11223344;
+	printf("%p\n", (void*)un2.c[0]);
+
+
+	/*
+		=======================枚举=======================
+
+		一种常用的 用户 自定义数据类型
+		允许你定义一组命名的常量 来表示某个有限集合的可能值
+
+	*/
+	//默认首值为0，也可以赋初始值
+	printf("%d\n", Mon);
+	printf("%d\n", Tues);
+	printf("%d\n", Wed);
+	printf("%d\n", Red);
+
+
 
 
 
