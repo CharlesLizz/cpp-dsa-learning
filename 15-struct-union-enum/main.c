@@ -157,7 +157,7 @@ int main()
 
 	int n = 0x11223344;
 	char* pc = (char*)&n;
-	printf("%p\n", (void*)*pc);
+	printf("%x\n", (void*)*pc);
 
 
 
@@ -168,7 +168,7 @@ int main()
 
 	union Un1 un2;
 	un2.i = 0x11223344;
-	printf("%p\n", (void*)un2.c[0]);
+	printf("%x\n", (void*)un2.c[0]);
 
 
 	/*

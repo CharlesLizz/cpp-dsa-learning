@@ -76,6 +76,114 @@ int main()
 	//与malloc不同，calloc默认分配的内存是0
 	//函数原型：void *calloc(size_t nitems, size_t size)
 
+	int m = 5;
+	int* p1 = (int*)calloc(m, sizeof(int));
+
+	//debug判断malloc内存是否申请成功
+	assert(p1 != NULL);
+	//release判断malloc内存是否申请成功
+	if (p1 == NULL)
+	{
+		printf("申请失败\n");
+		return -1;
+	}
+	else
+	{
+		printf("%p\n", p1);
+	}
+
+
+	//打印
+	for (int i = 0; i < m; i++)
+	{
+		printf("%d ", *(p1 + i));
+
+	}
+	//输出 0 0 0 0 0 ，默认分配为0
+
+	//释放内存
+	free(p1);
+	p1 = NULL;
+
+
+	/*
+		===========================realloc动态内存分配===========================
+	*/
+	/*
+		让动态内存管理更灵活；
+		realloc可以做到对动态开辟的内存灵活调整
+		函数原型：void *realloc(void *ptr, size_t size)
+
+		参数与返回值说明
+			1、ptr是要调整的内存地址
+			2、size是调整后的新大小，单位是字节
+			3、返回值是调整之后的内存起始位置
+			4、在调整原内存空间大小的基础上，还会将原来内存中的数据 移动到新的空间
+
+
+	情况1：原有空间之后，有足够大的空间
+		则直接 扩容
+	情况2：原有空间之后，没有足够大的空间
+		则在堆空间中重新申请一块足够大的 连续空间
+	*/
+	printf("\n");
+
+	int n3 = 5;
+	int* p3 = (int*)malloc(n * sizeof(int));//现在申请分配了20个字节的空间
+
+	//debug判断malloc内存是否申请成功
+	assert(p3 != NULL);
+	//release判断malloc内存是否申请成功
+	if (p3 == NULL)
+	{
+		printf("申请失败\n");
+		return -1;
+	}
+	else
+	{
+		printf("%p\n", p3);
+	}
+
+
+	//为内存填入值
+	for (int i = 0; i < n3; i++)
+	{
+		*(p3 + i) = i + 1;
+
+	}
+	//打印
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d ", *(p3 + i));
+
+	}
+	printf("\n");
+
+	//使用realloc，扩容到40个字节
+
+	int* ptr = (int*)realloc(p3, 2 * n * sizeof(int));
+
+	printf("===========分割线===========\n");
+
+
+	//打印
+	for (int i = 0; i < 2 * n; i++)
+	{
+		printf("%d ", *(ptr + i));
+
+	}
+	free(ptr);
+	ptr = NULL;
+
+	//Q1:realloc函数一定能分配成功吗？
+	/*
+		p3 = (int*)realloc(p3, 2 * n * sizeof(int));
+		如果realloc失败了，返回NULL，那么p3接受后，会导致原数据丢失
+	*/
+
+
+
+
 
 
 
@@ -85,6 +193,9 @@ int main()
 
 	return 0;
 }
+
+
+
 
 
 //case 
