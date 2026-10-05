@@ -49,17 +49,55 @@ int main()
 	"w+"创建一个用于读写的空文件。
 	"a+"打开一个用于读取和追加的文件。
 	*/
-	FILE* pf = fopen("./test.txt", "r");
+	FILE* pf = fopen("./input.txt", "r");
 	if (pf == NULL)
 	{
 		printf("文件打开失败\n");
 		return 1;
 	}
+	printf("文件打开成功\n");
 
 
+	//fputc函数
+	//函数原型int fputc(int char, FILE *stream)
+	//将char指定的字符写入到stream指向的输出流中，
+	//通常用于向文件或者标准输出流（stdout）写入字符
 
 
+	/*
+	fputc('h', pf);
+	fputc('e', pf);
+	fputc('l', pf);
+	fputc('l', pf);
+	fputc('o', pf);
+	*/
 
+	/*
+
+	char crr[] = { "hello" };
+	int len = sizeof(crr) / sizeof(crr[0]);
+	for (int i = 0;i < len - 1;i++)
+	{
+		fputc(crr[i], pf);
+	}
+
+	*/
+
+	//fgetc函数
+	//从参数stream指向的流中读取一个字符
+	// 该函数以无符号 char 强制转换为 int 的形式返回读取的字符，
+	// 如果到达文件末尾或发生读错误，则返回 EOF。
+	//函数原型int fgetc(FILE *stream)
+
+
+	int ch = -1;
+	while ((ch = fgetc(pf)) != EOF)
+	{
+		printf("%c ", ch);
+	}
+
+
+	printf("\n");
 	//关闭文件
 	int ret = fclose(pf);
 	pf = NULL;//指针置空
