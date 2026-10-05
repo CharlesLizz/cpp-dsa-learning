@@ -38,7 +38,7 @@
 */
 int main()
 {
-	//函数原型FILE* fopen(const char* _FileName,const char* _Model);
+	//函数原型FILE* fopen(const char* _FileName,const char* _Mode);
 	//如果打开成功，则返回一个指向FILE对象的指针；否则返回一个NULL指针
 
 	/*
@@ -49,7 +49,7 @@ int main()
 	"w+"创建一个用于读写的空文件。
 	"a+"打开一个用于读取和追加的文件。
 	*/
-	FILE* pf = fopen("./input.txt", "r");
+	FILE* pf = fopen("./input.txt", "rb");
 	if (pf == NULL)
 	{
 		printf("文件打开失败\n");
@@ -57,8 +57,7 @@ int main()
 	}
 	printf("文件打开成功\n");
 
-
-	//fputc函数
+	//===================fputc函数===================
 	//函数原型int fputc(int char, FILE *stream)
 	//将char指定的字符写入到stream指向的输出流中，
 	//通常用于向文件或者标准输出流（stdout）写入字符
@@ -83,18 +82,110 @@ int main()
 
 	*/
 
-	//fgetc函数
+	//===================fgetc函数===================
 	//从参数stream指向的流中读取一个字符
 	// 该函数以无符号 char 强制转换为 int 的形式返回读取的字符，
 	// 如果到达文件末尾或发生读错误，则返回 EOF。
 	//函数原型int fgetc(FILE *stream)
 
+	/*
 
 	int ch = -1;
 	while ((ch = fgetc(pf)) != EOF)
 	{
 		printf("%c ", ch);
 	}
+
+	*/
+
+	//===================fputs函数===================
+	//函数原型int fputs(const char *str, FILE *stream)
+	//将参数 str指向的字符串写入到参数stream指定的流中(不包含结尾的\0)
+
+	/*
+
+		const char* str = "liujiaxuan";
+
+		fputs(str, pf);
+
+	*/
+
+	//===================fgets函数===================
+	//函数原型char *fgets(char *str, int n, FILE *stream)
+	/*
+
+		str -- 这是指向一个字符数组的指针，该数组存储了要读取的字符串。
+		n -- 这是要读取的最大字符数（包括最后的\0）。通常是使用以 str 传递的数组长度。
+		stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了要从中读取字符的流。
+
+	*/
+
+
+	/*
+
+		char str[100];
+		fgets(str, sizeof(str), pf);
+		printf("%s\n", str);
+
+	*/
+
+	//===================fwrite函数===================
+	// 
+	// 常用于二进制文件数据写入
+	// 
+	//函数原型：size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
+	/*
+	把 ptr 所指向的数组中的数据写入到给定流 stream 中
+	ptr -- 这是指向要被写入的元素数组的指针。
+	size -- 这是要被写入的每个元素的大小，以字节为单位。
+	nmemb -- 这是元素的个数，每个元素的大小为 size 字节。
+	stream -- 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输出流。
+
+	*/
+
+	/*
+	int arr[] = { 1,2,3,4,5 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int count = fwrite(arr, sizeof(int), len, pf);
+
+	if (count != len)
+	{
+		perror("fwrite");
+		printf("文件写入失败\n");
+		return -1;
+	}
+	*/
+
+
+	//===================fread函数===================
+	//函数原型：size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
+
+	/*
+	从给定流 stream 读取数据到 ptr 所指向的数组中
+
+	ptr -- 这是指向带有最小尺寸 size*nmemb 字节的内存块的指针。
+	size -- 这是要读取的每个元素的大小，以字节为单位。
+	nmemb -- 这是元素的个数，每个元素的大小为 size 字节。
+	stream -- 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输入流。
+
+	*/
+
+
+	int arr[5];
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int size = fread(arr, sizeof(int), len, pf);
+	if (size != len)
+	{
+		perror("fread");
+		printf("文件读取失败\n");
+		return -1;
+	}
+	//输出
+	for (int i = 0;i < len;i++)
+	{
+		printf("arr[%d] = %d \n", i, arr[i]);
+	}
+
 
 
 	printf("\n");
