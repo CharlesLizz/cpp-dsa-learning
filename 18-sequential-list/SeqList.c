@@ -17,7 +17,6 @@ void SLInt(SL* ps)
 	ps->capacity = 0;
 }
 
-
 //2倍扩容
 void SLCheckCapacity(SL* ps)
 {
@@ -29,13 +28,11 @@ void SLCheckCapacity(SL* ps)
 		{
 			//初始化
 			ps->capacity = INIT_CAPACITY;
-
 		}
 		else
 		{
 			//2倍扩容
 			ps->capacity = 2 * ps->capacity;
-
 		}
 		SLDataType* tmp = realloc(ps->a, ps->capacity * sizeof(SLDataType));
 		//确保realloc成功
@@ -43,14 +40,10 @@ void SLCheckCapacity(SL* ps)
 		{
 			//扩容失败
 			perror("realloc失败了");
-			return -1;
+			return;
 		}
-
 		ps->a = tmp;
-
 	}
-
-
 }
 
 //尾部插入数据
@@ -64,8 +57,7 @@ void SLPushBack(SL* ps, SLDataType x)
 	//插入数据
 	ps->a[ps->size++] = x;
 
-	//ps->size++;
-
+	//ps->size++;//可省略，直接写到赋值操作中
 }
 
 //打印输出
@@ -81,7 +73,7 @@ void SLPrint(SL* ps)
 }
 
 //尾部删除数据
-void SLPopBach(SL* ps)
+void SLPopBack(SL* ps)
 {
 	assert(ps != NULL);
 	assert(ps->size != 0);
@@ -124,8 +116,70 @@ void SLPopFront(SL* ps)
 	}
 	ps->size--;
 
-
 }
 
+//指定位置插入数据
+void SLInsert(SL* ps, int pos, SLDataType x)
+{
+	//1、检查空间是否存在
+	//2、检查是否有空余空间
+	SLCheckCapacity(ps);
+	//3、确保pos合法性
+	assert(pos >= 0 && pos <= ps->size);
+	
+	//给x腾空间
+	for (int i = ps->size - 1;i >= pos;i--)
+	{
+		ps->a[i + 1] = ps->a[i];
+	}
+	//插入数据
+	ps->a[pos] = x;
+	ps->size++;
+}
 
+//删除指定位置数据
+void SLErase(SL* ps, int pos)
+{
+	//确保有数据可删
+	assert(ps != NULL);
+	assert(ps->size != 0);
+	//确保pos合法性
+	assert(pos >= 0 && pos < ps->size);
+
+	//覆盖数据
+	for (int i = pos;i < ps->size - 1;i++)
+	{
+		ps->a[i] = ps->a[i + 1];
+	}
+	ps->size--;
+}
+
+//查找数据，找到后返回对应下标
+int SLFind(SL* ps, SLDataType x)
+{
+	assert(ps != NULL);
+	assert(ps->size != 0);
+
+	for (int i = 0;i < ps->size;i++)
+	{
+		if (ps->a[i] == x)
+			return i;
+
+	}
+
+	return -1;
+}
+//销毁顺序表
+void SLDestroy(SL* ps)
+{
+	assert(ps != NULL);
+	if (ps->a != NULL)
+	{
+		free(ps->a);
+		ps->a = NULL;
+	}
+	ps->size = 0;
+	ps->capacity = 0;
+
+}
 

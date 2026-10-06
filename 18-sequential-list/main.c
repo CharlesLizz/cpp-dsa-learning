@@ -19,8 +19,10 @@ void test()
 	//打印
 	SLPrint(&seq_list);
 
+	/*
+
 	//尾删
-	SLPopBach(&seq_list);
+	SLPopBack(&seq_list);
 	//打印
 	SLPrint(&seq_list);
 
@@ -35,6 +37,29 @@ void test()
 	//头删
 	SLPopFront(&seq_list);
 	//打印
+	SLPrint(&seq_list);
+
+	*/
+
+	//指定位置插入数据
+	printf("指定位置插入数据\n");
+	SLInsert(&seq_list, 3, 3333);
+	//打印
+	SLPrint(&seq_list);
+
+	printf("删除指定位置数据\n");
+	//删除指定位置数据
+	SLErase(&seq_list, 3);
+	//打印
+	SLPrint(&seq_list);
+
+	//查找数据下标
+	int ret = SLFind(&seq_list, 50);
+	printf("ret = %d\n",  ret);
+
+	//销毁
+	printf("销毁\n");
+	SLDestroy(&seq_list);
 	SLPrint(&seq_list);
 
 }
@@ -73,7 +98,11 @@ int main()
 
 	test();
 
-
+	/*
+		顺序表适合查找的场景=》数据基本不变化
+		但是插入和删除操作需要移动元素，比较麻烦，尤其是头部的插入和删除
+		需要扩容，可能存在空间浪费的情况
+	*/
 
 
 	return 0;

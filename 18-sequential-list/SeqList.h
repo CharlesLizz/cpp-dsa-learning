@@ -32,7 +32,7 @@ void SLPushBack(SL* ps, SLDataType x);
 void SLPrint(SL* ps);
 
 //尾部删除数据
-void SLPopBach(SL* ps);
+void SLPopBack(SL* ps);
 
 //头部插入数据
 void SLPushFront(SL* ps, SLDataType x);
@@ -40,5 +40,14 @@ void SLPushFront(SL* ps, SLDataType x);
 //头部删除数据
 void SLPopFront(SL* ps);
 
+//指定位置插入数据
+void SLInsert(SL* ps, int pos, SLDataType x);
 
+//删除指定位置数据
+void SLErase(SL* ps, int pos);
 
+//查找数据，找到后返回对应下标
+int SLFind(SL* ps, SLDataType x);
+
+//销毁顺序表
+void SLDestroy(SL* ps);
