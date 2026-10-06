@@ -20,4 +20,5 @@
   <Project Path="15-struct-union-enum/15-struct-union-enum.vcxproj" Id="66a6da0a-8e98-443b-af8a-9d137e76d46b" />
   <Project Path="16-dynamic-memory/16-dynamic-memory.vcxproj" Id="8dceb4cc-e137-4195-9c24-67793fa92f05" />
   <Project Path="17-file/17-file.vcxproj" Id="670626c6-cfe5-4786-bc55-37f476d060a4" />
+  <Project Path="18-sequential-list/18-sequential-list.vcxproj" Id="93b1ed67-ebf7-4139-b46b-a02dc711f7be" />
 </Solution>
