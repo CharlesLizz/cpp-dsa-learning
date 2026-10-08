@@ -56,10 +56,19 @@ SLTNode* createList()
 
 int main()
 {
+	/*
 	SLTNode* plist = createList();
 	SLTPrint(plist);
+	*/
 
+	SLTNode* plist = NULL;
+	SLTPushFront(&plist, 12);
+	SLTPushFront(&plist, 23);
+	SLTPushFront(&plist, 34);
+	SLTPrint(plist);
 
+	SLTPopFront(&plist);
+	SLTPrint(plist);
 
 	return 0;
 }
