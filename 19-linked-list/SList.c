@@ -57,3 +57,66 @@ void SLTPopFront(SLTNode** pphead)
 	*pphead = next;
 }
 
+//尾部插入
+void SLTPushBack(SLTNode** pphead, SLTDateType x)
+{
+	assert(pphead != NULL);
+	SLTNode* node = buyNode(x);
+
+	if (*pphead == NULL)
+	{
+		*pphead = node;
+	}
+	else
+	{
+		//找尾巴
+		SLTNode* pCur = *pphead;
+		while (pCur->next != NULL)
+		{
+			pCur = pCur->next;
+		}
+		pCur->next = node;
+	}
+}
+
+//尾部删除
+void SLTPopBack(SLTNode** pphead)
+{
+	assert(pphead != NULL && *pphead != NULL);
+
+	SLTNode* pCur = *pphead;
+	//如果只有一个节点
+	if ((*pphead)->next == NULL)
+	{
+		free(*pphead);
+		*pphead = NULL;
+	}
+	else
+	{	//法1
+		//找尾巴的前驱节点
+		while (pCur->next->next != NULL)
+		{
+			pCur = pCur->next;
+		}
+		free(pCur->next);
+		pCur->next = NULL;
+
+		//法2
+		/*
+		SLTNode* prev = NULL;
+		SLTNode* ptail = *pphead;
+		while (ptail->next != NULL)
+		{
+			prev = ptail;
+			ptail = ptail->next;
+		}
+		//现在ptail是尾巴节点，prev是前驱节点
+		free(ptail);
+		prev->next = NULL;
+
+		*/
+	}
+}
+
+
+

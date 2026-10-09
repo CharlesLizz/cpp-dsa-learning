@@ -62,6 +62,24 @@ int main()
 	*/
 
 	SLTNode* plist = NULL;
+	
+
+	SLTPushBack(&plist, 12);
+	SLTPushBack(&plist, 23);
+	SLTPushBack(&plist, 34);
+	SLTPushBack(&plist, 45);
+	SLTPrint(plist);
+
+	SLTPopBack(&plist);
+	SLTPopBack(&plist);
+	SLTPopBack(&plist);
+	SLTPrint(plist);
+
+
+
+
+
+	/*
 	SLTPushFront(&plist, 12);
 	SLTPushFront(&plist, 23);
 	SLTPushFront(&plist, 34);
@@ -69,6 +87,10 @@ int main()
 
 	SLTPopFront(&plist);
 	SLTPrint(plist);
+	*/
+
+	
+
 
 	return 0;
 }
