@@ -21,12 +21,12 @@
 		所以链表的节点与节点之间物理内存不一定连续
 
 		链表分类
-			是否带头
-			单向双向
-			是否循环
+			是否带头节点
+			单向链表还是双向链表
+			是否是循环链表
 		共有八种链表
 
-		主要讲的是 不带头 单向且非循环 的链表
+		此处主要学习的是 不带头 单向且非循环 的链表
 */
 
 #include "SList.h"
@@ -62,20 +62,46 @@ int main()
 	*/
 
 	SLTNode* plist = NULL;
-	
+
 
 	SLTPushBack(&plist, 12);
 	SLTPushBack(&plist, 23);
 	SLTPushBack(&plist, 34);
 	SLTPushBack(&plist, 45);
+	/*
 	SLTPrint(plist);
 
 	SLTPopBack(&plist);
 	SLTPopBack(&plist);
 	SLTPopBack(&plist);
+	*/
 	SLTPrint(plist);
 
+	SLTInsert(&plist, 0, 111);
+	SLTInsert(&plist, 5, 999);
+	SLTInsert(&plist, 3, 555);
 
+	SLTPrint(plist);
+
+	SLTErase(&plist, 111);
+	SLTErase(&plist, 555);
+	SLTErase(&plist, 999);
+	SLTPrint(plist);
+
+	SListDesTroy(&plist);
+
+	/*
+	SLTNode* ret = SLTFind(plist, 12);
+
+	if (ret == NULL)
+	{
+		printf("没找到\n");
+	}
+	else
+	{
+		printf("ret = %d\n", ret->data);
+	}
+	*/
 
 
 
@@ -89,7 +115,7 @@ int main()
 	SLTPrint(plist);
 	*/
 
-	
+
 
 
 	return 0;

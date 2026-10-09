@@ -10,7 +10,7 @@ typedef struct SListNode
 	struct SListNode* next;		//指针保存下一个节点的地址
 }SLTNode;
 
-
+//打印链表data域
 void SLTPrint(SLTNode* phead);
 
 //头部插入删除

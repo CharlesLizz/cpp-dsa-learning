@@ -117,6 +117,118 @@ void SLTPopBack(SLTNode** pphead)
 		*/
 	}
 }
+//查找
+SLTNode* SLTFind(SLTNode* phead, SLTDateType x)
+{
+	assert(phead != NULL);
+	SLTNode* pCur = phead;
+	while (pCur != NULL)
+	{
+		if (pCur->data == x)
+		{
+			return pCur;
+		}
+		pCur = pCur->next;
+	}
+	return NULL;
+}
+//求链表长度
+int GetLen(SLTNode* phead)
+{
+	assert(phead != NULL);
+	SLTNode* pCur = phead;
+	int count = 0;
+	while (pCur != NULL)
+	{
+		count++;
+		pCur = pCur->next;
+	}
+	return count;
+
+}
+
+//查找pos位置的前一个节点
+SLTNode* findPrevOfPos(SLTNode* phead, SLTDateType pos)
+{
+	SLTNode* prev = phead;
+	int count = 0;
+	while (count != pos - 1)
+	{
+		prev = prev->next;
+		count++;
+	}
+	return prev;
+}
+
+//在指定位置之前插入数据
+void SLTInsert(SLTNode** pphead, int pos, SLTDateType x)
+{
+	assert(pphead != NULL);
+	int len = GetLen(*pphead);
+	assert(pos >= 0 && pos <= len);
+	if (pos == 0)
+	{
+		//头插法
+		SLTPushFront(pphead, x);
+		return;
+	}
+	if (pos == len)
+	{
+		//尾插法
+		SLTPushBack(pphead, x);
+		return;
+	}
+	//找插入节点的位置
+	SLTNode* prev = findPrevOfPos(*pphead, pos);
+	SLTNode* node = buyNode(x);
+
+	node->next = prev->next;
+	prev->next = node;
+}
 
 
+//删除关键字为Key的节点
+void SLTErase(SLTNode** pphead, int key)
+{
+	assert(pphead != NULL && *pphead != NULL);
 
+	if ((*pphead)->data == key)
+	{
+		//删除头节点
+		SLTPopFront(pphead);
+		return;
+	}
+
+	SLTNode* pCur = *pphead;
+	//找到key对应的前一个节点
+	while (pCur->next != NULL && pCur->next->data != key)
+	{
+		pCur = pCur->next;
+	}
+
+	if (pCur->next == NULL)
+	{
+		printf("没找到\n");
+		return;
+	}
+
+	//删除对应节点
+	SLTNode* keyNode = pCur->next;
+	pCur->next = keyNode->next;
+	free(keyNode);
+}
+
+//销毁链表
+void SListDesTroy(SLTNode** pphead)
+{
+	assert(pphead != NULL);
+
+	SLTNode* pCur = *pphead;
+	while (pCur != NULL)
+	{
+		SLTNode* pNext = pCur->next;
+		free(pCur);
+		pCur = pNext;
+	}
+	*pphead = NULL;
+}
