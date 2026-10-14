@@ -278,4 +278,78 @@ int LocateElem(SeqList L,int e){
 
 **Tips**：数据结构这门课在考研初试时，手写代码（伪代码）可以直接用“==”，无论ElemType是基本数据类型还是结构类型
 
+## 2.3.1 单链表的定义（如何用代码实现）
 
+用链式存储实现的统称为链表
+
+### 什么是单链表？
+
+每个节点除了存放数据元素外，还要存储指向下一个节点的指针
+
+- 单链表的有点：不要求大片连续空间，改变空间方便
+- 要耗费一定的空间存放指针、地址
+
+### 定义一个单链表
+
+**case:不带头节点的情况**
+```c
+typedef struct LNode {				//定义单链表节点数据			
+	ElemType data;			//每个节点存放一个数据元素
+	struct LNode* next;		//指针指向下一个节点
+}LNode, * LinkList;
+
+//初始化一个空的单链表
+_Bool InitList(LinkList* L)
+{
+	L = NULL;	//空表，暂时还没有任何节点
+	return 1;
+}
+
+void test()
+{
+	LinkList L;		//声明一个指向单链表的指针
+	//初始化一个空表
+	InitList(&L);
+
+	//。。。后续代码。。。
+}
+```
+**case:带头节点的情况**
+
+```c
+//初始化一个单链表（带头节点）
+_Bool InitList(LinkList* L)
+{
+	L = (LNode*)malloc(sizeof(LNode));
+	if (L == NULL)
+		return 0;
+	L->next = NULL;		
+	return 1;
+}
+
+void test()
+{
+	LinkList L;		//声明一个指向单链表的指针
+	//初始化一个空表
+	InitList(&L);
+
+	//。。。后续代码。。。。
+}
+```
+**注**：上述是伪代码，并未在C语言中真正实现功能，例如带头节点块中的 L->next = NULL;	未初始化，无法指向next
+
+### 两种实现总结
+
+- 不带头节点
+
+    空表判断：L == NULL。写代码不方便
+
+- 带头节点
+
+    空表判断：L->next == NULL。写代码更方便
+
+## 2.3.2_1 单链表插入和删除
+
+### 插入
+
+#### 按位插入
