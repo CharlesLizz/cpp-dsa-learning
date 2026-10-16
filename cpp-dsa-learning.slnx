@@ -24,4 +24,5 @@
   <Project Path="19-linked-list/19-linked-list.vcxproj" Id="42b4c110-b359-41b7-bdae-cd4143c06231" />
   <Project Path="DS-01-基本概念与算法复杂度/DS-01-基本概念与算法复杂度.vcxproj" Id="e27d9817-731b-4a73-a162-0d158d872ef5" />
   <Project Path="DS-02：线性表/DS-02：线性表.vcxproj" Id="40d69de4-247a-4ec3-9eac-259e6ae98dc6" />
+  <Project Path="DS-03-栈与队列/DS-03-栈与队列.vcxproj" Id="89c19c58-a1f5-4568-8e41-97a82867fdc0" />
 </Solution>

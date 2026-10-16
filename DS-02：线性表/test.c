@@ -33,7 +33,7 @@ _Bool InitList(LinkList* L)
 	L = (LNode*)malloc(sizeof(LNode));
 	if (L == NULL)
 		return 0;
-	L->next = NULL;		
+	(*L)->next = NULL;
 	return 1;
 }
 
