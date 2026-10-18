@@ -211,7 +211,34 @@ void InitQueue(LinkQueue &Q){
 	Q.front->next = NULL;
 }
 
+//判断带头节点队列是否为空
+bool IsEmpty(LinkQueue Q){		//也可以用头节点指针是否指向NULL来判断
+	if(Q.front == Q.rear)
+		return true;
+	else
+		return false;
+}
 
+//初始化队列（不带头节点）
+void InitQueue(LinkQueue &Q){
+	//初始化时，front、rear都指向NULL
+	Q.front = NULL;
+	Q.rear = NULL;
+}
+
+//判断不带头节点队列是否为空
+bool IsEmpty(LinkQueue Q){		//也可以用rear指针是否指向NULL来判断
+	if(Q.front == NULL)
+		return true;
+	else
+		return false;
+}
+
+//带头节点入队
+//不带头节点入队
+
+//带头节点出队
+//不带头节点出队
 
 
 ```
