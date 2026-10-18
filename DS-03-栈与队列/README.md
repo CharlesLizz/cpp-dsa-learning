@@ -4,7 +4,7 @@
 
 ### 栈的定义
 
-栈 是只允许再一段进行插入或者删除操作的线性表（一种特殊的线性表）
+栈 是只允许在一段进行插入或者删除操作的线性表（一种特殊的线性表）
 
 **重要术语**：
 - 栈顶：允许插入和删除的一段
@@ -94,6 +94,126 @@ typedef struct Linknode{
 	ElemType data;
 	struct Linknode* next;
 }* LiStack;
+```
+
+## 3.2.1队列（Queue）的基本概念
+
+队列（Queue） 是只允许在一段进行插入操作，在另一端进行删除操作的线性表（本质上也是一种特殊的线性表）
+
+**Tips**：就行排队一样，来的新人只能从队伍尾开始排队
+
+**重要术语**：
+- 队头。允许删除的一端
+- 队尾。允许插入的一端
+- 空队列
+
+**队列的特点**：先进先出First In First Out（FIFO）
+
+### 队列相关的基本操作
+
+- InitQueue初始化队列。构造一个空队列Q
+- DestroyQueue销毁队列。销毁并释放队列Q所占用的内存空间
+- EnQueue入队。若队列Q未满，将x加入，使之成为新的队尾
+- DeQueue出队。若队列Q非空，删除队头元素，并用x返回
+- GetHead读取队头元素。若队列Q非空，则将队头元素赋值给x
+
+#### 其他常用操作
+
+- QueueEmpty判队列空。若队列Q为空返回true，否则返回false
+
+## 3.2.2队列（Queue）的顺序实现
+
+### 顺序队列的实现
+
+```c伪码
+//定义队列
+#define MaxSize 10
+typedef struct{
+	ElemType data[MaxSize];		//用静态数组存放队列元素
+	int front ,rear;		//队头指针，队尾指针
+}SqQueue;
+
+//初始化队列
+void InitQueue(SqQueue &Q){
+	//初始化时 队头、队尾指针指向0
+	Q.rear = Q.front = 0;
+}
+
+//判断队列是否为空
+bool QueueEmpty(SqQueue Q){
+	if(Q.rear == Q.front)		//队空条件
+		return true;
+	else
+		return false;
+}
+
+//入队
+bool EnQueue(SqQueue &Q,ElemType x){
+	if((Q.rear+1)%MaxSize == Q.front)	//(Q.rear+1)%MaxSize == Q.front 如果队尾后一个元素的位置是队头，意味着队列已经满了
+		return false;
+	Q.data[Q.rear] = x
+	Q.rear = (Q.rear + 1) % MaxSize;	//队尾指针+1后取模
+	return true;
+}
+
+//出队
+bool DeQueue(SqQueue &Q,ElemType &x){
+	if()Q.rear == Q.front)			//队列空
+		return false;
+	x = Q.data[Q.front];
+	Q.front = (Q.front+1)%MaxSize;
+	return true;
+}
+
+//获取队头元素的值，用x返回
+bool GetHead(SqQueue Q,ElemType &x){
+	if(Q.rear == Q.front)			//Q.rear == Q.front 如果队尾指针和队头指针指向一个位置，意味着队列已经空了
+		return false;
+	x = Q.data[Q.front];
+	return true;
+}
+
+
+
+
+
+```
+
+**Tips1**：进行入队操作时，如果先入队到队列满，再进行有限次（小于总队列元素数）出队操作，则front前出现空位，可以通过rear = rear+1后取模来进行入队操作，从线状的利用空间变成环状的利用空间
+
+**Tips2**：有些地方也会使用 a MOD b 来代表取模运算
+
+**Tips3**：可以用 （rear+MaxSize-front）% MaxSize 的方式来计算队列中的元素个数
+
+#### 个别题目要求不能通过牺牲一块区域的方式 来判断队满还是空，此时我们可以通过
+
+- 增加变量size，记录队列中存储的元素个数
+- 增加变量tag，每次删除操作成功时，使tag = 0；每次插入成功时，令tag = 1。又有 只有删除操作会使队空，只有插入操作会使队满
+
+## 3.2.3队列（Queue）的链式实现（链队列）
+
+```c伪码
+//链式队列节点
+typedef struct LinkNode{
+	ElemType data;
+	struct LinkNode* next;
+}LinkNode;
+
+//链式队列
+typedef struct{
+	LinkNode* front,rear;		//同时保存队尾和队首两个指针
+}LinkQueue;
+
+//初始化队列（带头节点）
+void InitQueue(LinkQueue &Q){
+	//初始化时 front和rear都指向头节点
+	Q.front = Q.rear = (LinkNode*)malloc(sizeof(LinkNode));
+	Q.front->next = NULL;
+}
+
+
+
+
 ```
 
 
