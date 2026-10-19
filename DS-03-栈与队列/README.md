@@ -240,7 +240,7 @@ bool IsEmpty(LinkQueue Q){		//也可以用rear指针是否指向NULL来判断
 //带头节点出队
 //不带头节点出队
 
-
+ 
 ```
 
 
