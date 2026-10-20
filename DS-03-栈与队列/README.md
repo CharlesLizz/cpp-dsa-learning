@@ -235,18 +235,78 @@ bool IsEmpty(LinkQueue Q){		//也可以用rear指针是否指向NULL来判断
 }
 
 //带头节点入队
+void EnQueue(LinkQueue &Q,ElemType x){
+	LinkNode* s=(LinkNode*)malloc(sizeof(LinkNode));
+	s->data = x;
+	s->next = NULL;
+	Q.rear->next = s;		//新节点插入到rear之后
+	Q.rear = s;			//修改表尾指针
+}
+
 //不带头节点入队
+void EnQueue(LinkQueue &Q,ElemType x){
+	LinkNode* s = (LinkNode*)malloc(sizeof(LinkNode));
+	s->data = x;
+	s->next = NULL;
+	if(Q.front == NULL){
+	Q.front = s;
+	Q.rear = s;
+	}else{
+	Q.rear->next = s;
+	Q.rear = s;
+	}
 
 //带头节点出队
-//不带头节点出队
+bool DeQueue(LinkQueue &Q,ElemType &x){
+	if(Q.front == Q.rear)
+		return false;
+	LinkNode* p = Q.front->next;
+	x = p->data;
+	Q.front->next = p->next;
+	if(Q.rear == p)
+		Q.rear = Q.front;
+	free(p);
+	return true;
+}
 
+//不带头节点出队
+bool DeQueue(LinkQueue &Q,ElemType &x){
+	if(Q.front == NULL)
+		return false;
+	LinkNode* p = Q.front;
+	x = p->data;
+	Q.front = p->next;
+	if(Q.rear == p){
+		Q.rear = NULL;
+		Q.front = NULL;
+	}		
+	free(p);
+	return true;
+}
  
 ```
+#### 链队列满的条件
 
+ - 一般不会满，除非内存不足
 
+## 3.2.4双端队列
 
+普通队列只允许从一端插入，另一端删除的线性表
 
+不同于普通队列，双端队列只允许从两端插入、两端删除的线性表
 
+**Tips1**：由此可以引申出
 
+- 输入受限的双端队列：只允许从一端插入、两端删除的线性表
+- 输出受限的双端队列：只允许从两端插入、一端删除的线性表
+
+#### 考点1
+
+判断输出序列合法性
+
+- 栈
+- 队列
+- 输入受限的双端队列
+- 输出受限的双端队列
 
 
