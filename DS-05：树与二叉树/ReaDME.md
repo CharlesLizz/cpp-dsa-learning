@@ -447,4 +447,63 @@ p->rchild = NULL;
 ```
 **Tip**：n个结点的二叉链表共有n+1个空链域
 
+## 5.3.1 二叉树的先中后序遍历及层序遍历
+
+**遍历**：按照某种次序把所有结点都访问一遍
+
+**层次遍历**：基于树的层次特性确定的次序规则
+
+#### 二叉树的递归特性
+
+1. 要么是一个空二叉树
+2. 要么是由“根节点+左子树+右子树”组成的二叉树
+
+
+#### 分支节点逐层展开法
+
+- 先序——根左右（NLR）
+
+```c
+void PreOrder(BiTree T){
+	if(T!=NULL){
+		visit(T);				//访问根节点
+		PreOrder(T->lchild);	//递归遍历左子树
+		PreOrder(T->rchild);	//递归遍历右子树
+	}
+}
+```
+
+- 中序——左根右（LNR）
+
+```c
+void PreOrder(BiTree T){
+	if(T!=NULL){
+		PreOrder(T->lchild);	//递归遍历左子树
+		visit(T);				//访问根节点
+		PreOrder(T->rchild);	//递归遍历右子树
+	}
+}
+```
+
+- 后序——左右根（LRN）
+
+```c
+void PreOrder(BiTree T){
+	if(T!=NULL){
+		PreOrder(T->lchild);	//递归遍历左子树
+		PreOrder(T->rchild);	//递归遍历右子树
+		visit(T);				//访问根节点
+	}
+}
+```
+
+**Tip**：先中后是指遍历根结点的次序
+
+
+
+
+
+
+
+
 
