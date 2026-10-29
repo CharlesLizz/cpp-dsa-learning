@@ -394,8 +394,57 @@ $$
 
 ## 5.2.2二叉树的存储结构
 
-- **顺序存储**：使用数组存储结点，适合完全二叉树，可以通过结点编号计算孩子和双亲的位置。
-- **链式存储**：每个结点通常包含数据域、左孩子指针和右孩子指针，适用于一般二叉树。
+### **顺序存储**：使用数组存储结点，适合完全二叉树，可以通过结点编号计算孩子和双亲的位置。
 
+```#
+	#define MaxSize 100
+	struct TreeNode{
+		ElemType value;		//节点中的数据元素
+		bool isEmpty;		//结点是否为空
+	};
+	TreeNode t[MaxSize];
+```
+几个常考的基本操作
+- i的左孩子——2i
+- i的右孩子——2i+1
+- i的父结点——[i/2]
+- i所在的层次——[log~2~(n+1)]或者[log~2~n]+1
+
+若完全二叉树中共右n个结点，则
+- 判断i是否有左孩子？——2i <= n ?
+- 判断i是否有右孩子？——2i+1 <= n ?
+- 判断i是否是叶子/分支结点？i > [n/2] ?
+
+ 如果不是完全二叉树，依然按照层序将各个结点顺序存储，那么将**无法再反映出结点之间的逻辑关系**
+
+ 所以在二叉树的顺序存储中，一定要把二叉树的结点编号与完全二叉树对应起来，
+
+ 那么判断在共有n个结点的非完全二叉树中的是否有左右孩子、是否是叶子/分支结点时，可以使用isEmpty字段值
+
+ #### 这种方法会造成大量的空间浪费，所以只适合完全二叉树
+
+### **链式存储**：每个结点通常包含数据域、左孩子指针和右孩子指针，适用于一般二叉树。
+
+```c
+typedef struct BiTNode{
+	ElemType data;					//数据域
+	struct BitNode *lchid,*rchild;	//左右孩子指针
+}BiTNode,*BiTree;
+
+//定义一棵空树
+BiTree root = NULL;
+//插入根节点
+root = (BiTree) malloc(sizeof(BiTNode));
+root->data = {1};
+root->lchild = NULL;
+root->rchild = NULL;
+
+//插入新节点
+BiTNode* p = (BiTree) malloc(sizeof(BiTNode));
+p->data = {2};
+p->lchild = NULL;
+p->rchild = NULL;
+```
+**Tip**：n个结点的二叉链表共有n+1个空链域
 
 
