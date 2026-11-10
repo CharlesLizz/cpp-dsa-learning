@@ -499,6 +499,45 @@ void PreOrder(BiTree T){
 
 **Tip**：先中后是指遍历根结点的次序
 
+### 二叉树的层序遍历
+
+**算法思想：**
+- 初始化一个辅助队列
+- 根节点入队
+- 若队列非空，则队头结点出队，访问该节点，并将左、右孩子插入队尾（如果有的话）
+- 重复第三步直到队列为空
+
+```c
+viod LevelOrder(BiTree T)
+{
+	LinkQueue Q;
+	InitQueue(Q);		//初始化辅助队列
+	BiTree p;
+	EnQueue(Q,T);		//根节点入队
+	while(!IsEmpty(Q)){		//队列非空则循环
+		DeQueue(Q,p);
+		visit(p);			//访问出队结点
+		if(p->lchild != NULL)
+			EnQueue(Q,p->lchild);		//左孩子入队
+		if(p->rchild != NULL)
+			EnQueue(Q,p->rchild);		//右孩子入队
+	}
+}
+//二叉树的结点（链式存储）
+typedef struct BiTNode{
+	char data;
+	struct BiTNode *lchild,*rchild;
+}BiTNode,*BiTree;
+//链式队列结点
+typedef struct LinkNode{
+	BiTNode *data;
+	struct LinkNode *next;
+}LinkNode;
+
+typedef struct{
+	LinkNode *front,*rear;//队头队尾
+}LinkQueue;
+```
 
 
 
