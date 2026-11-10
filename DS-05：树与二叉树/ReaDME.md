@@ -548,6 +548,36 @@ typedef struct{
 
 在给出两种遍历序列确定一棵二叉树的题目中，关键点是找到树的根节点，并根据中序序列划分左右子树，再找到左右子树的根节点
 
+## 5.3.2 二叉线索树及二叉树的线索化，以及在线索二叉树中找前驱后继
+
+**前情提要**：共有n个结点的二叉树，一共有n+1个空链域
+
+#### 二叉线索树就是利用空链域来记录结点的前驱与后继
+
+**Tip**：这里的前驱后继是**遍历序列**中的前驱后继，而不是单纯的父子结点
+
+- 这些空链域中指向前驱后继的指针就叫做线索
+- 指向前驱的就叫**前驱线索**
+- 指向后继的就叫**后继线索**
+
+```c
+//二叉树的结点（链式存储）
+typedef struct BiTNode{
+	ElemType data;
+	struct BiTNode *lchild,*rchild;
+}BiTNode,*BiTree;
+
+//线索二叉树结点
+typedef struct ThreadNode{
+	ElemType data;
+	struct ThreadNode *lchild,*rchild;
+	int ltag,rtag;		//左右线索标志
+}ThreadNode,*ThreadTree;
+```
+
+**Tip**：二叉树可以被称为二叉链表，同样的二叉线索树可以被称为是线索链表
+
+
 
 
 
