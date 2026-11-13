@@ -476,11 +476,11 @@ void PreOrder(BiTree T){
 - 中序——左根右（LNR）
 
 ```c
-void PreOrder(BiTree T){
+void InOrder(BiTree T){
 	if(T!=NULL){
-		PreOrder(T->lchild);	//递归遍历左子树
+		InOrder(T->lchild);	//递归遍历左子树
 		visit(T);				//访问根节点
-		PreOrder(T->rchild);	//递归遍历右子树
+		InOrder(T->rchild);	//递归遍历右子树
 	}
 }
 ```
@@ -488,10 +488,10 @@ void PreOrder(BiTree T){
 - 后序——左右根（LRN）
 
 ```c
-void PreOrder(BiTree T){
+void PostOrder(BiTree T){
 	if(T!=NULL){
-		PreOrder(T->lchild);	//递归遍历左子树
-		PreOrder(T->rchild);	//递归遍历右子树
+		PostOrder(T->lchild);	//递归遍历左子树
+		PostOrder(T->rchild);	//递归遍历右子树
 		visit(T);				//访问根节点
 	}
 }
@@ -581,6 +581,8 @@ typedef struct ThreadNode{
 
 ### 二叉树的线索化
 
+#### 中间借助了全局遍历pre，当然也可以用&pre来处理
+
 #### 中序线索化
 
 ```c
@@ -617,13 +619,13 @@ void visit(ThreadNode *q){
 
 ```c
 //先序遍历二叉树，一边遍历一边线索化
-void InThread（ThreadTree T）{			//先序遍历
+void PreThread（ThreadTree T）{			//先序遍历
 	if(T!=NULL){
 		visit(T);
 		if(T->ltag == 0){			//lchild不是前驱线索
 			PreThread(T->lchild);
 		}
-		InThread(T->rchild);
+		PreThread(T->rchild);
 	}
 }
 //全局变量pre，指向当前访问的结点的前驱
@@ -643,16 +645,16 @@ void visit(ThreadNode *q){
 //最后还要检查pre的rchild是否为NULL，如果是，则令rtag=1
 ```
 
-**Tip**：防止先序遍历中死循环，增加条件判断lchild不是前驱线索
+**Tip**：防止先序遍历中死循环，增加条件判断lchild不是前驱线索，只有ltag == 0时，才能对左子树先序线索化
 
 #### 后序线索化
 
 ```c
 //后序遍历二叉树，一边遍历一边线索化
-void InThread（ThreadTree T）{			//中序遍历
+void PostOrder（ThreadTree T）{			//中序遍历
 	if(T!=NULL){
-		InThread(T->lchild);
-		InThread(T->rchild);
+		PostOrder(T->lchild);
+		PostOrder(T->rchild);
 		visit(T);
 	}
 }
@@ -675,10 +677,114 @@ void visit(ThreadNode *q){
 
 **Tip**：区别于前序与中序遍历，访问根节点时，左右子树肯定已经处理完了，不会再去处理线索化后的子树，所以不会出现死循环的情况
 
+### 在线索二叉树中找前驱和后继
 
+##### 前情提要，二叉树线索化的初衷就是方便寻找一个结点在遍历序列中的前驱和后继
 
+##### 那么已经有线索二叉树的情况下，怎么来找一个结点的前驱和后继呢？
 
+#### 中序线索二叉树中找后继
 
+- 若p->rtag == 1，则next = p->rchild
+- 若p->rtag == 0
+
+```c
+//若p->rtag == 0，说明rchild存放的是子节点，而不是后继线索，找到以p为根的右子树中，第一个被中序遍历的结点即可
+ThradNode *Firstnode(ThreadNode *p){
+	//循环找到右子树最左下的结点（不一定是叶子结点）
+	while(p->ltag == 0) p = p->lchild;
+	return p;
+}
+
+//在中序线索二叉树中找到结点p的后继节点
+ThreadNode* Nextnode(ThreadNode *p){
+	//右子树中最左下结点
+	if(p->rtag == 0) return Firstnode(p->rchild);
+	else return p->rchild;		//rtag==1直接返回后继线索
+}
+
+//有中序线索二叉树，可以很轻松的实现中序遍历
+//对中序线索二叉树进行中序遍历（利用线索实现的非递归算法）
+void Inorder(ThreadNode *T){
+	for(ThreadNode *p=Firstnode(T);p!=NULL;p=Nextnode(p))
+		visit(p);
+}
+//由于使用非递归，空间复杂度只有O(1)
+```
+
+#### 中序线索二叉树中找前驱
+
+- 若p->ltag == 1，则pre=p->lchild
+- 若p->ltag == 0
+
+```c
+//若p->ltag == 0，说明lchild存放的是子节点，而不是前驱线索，找到以p为根的左子树中，最后一个被中序遍历的结点即可
+ThradNode *Lastnode(ThreadNode *p){
+	//循环找到左子树最右下的结点（不一定是叶子结点）
+	while(p->rtag == 0) p = p->rchild;
+	return p;
+}
+
+//在中序线索二叉树中找到结点p的前驱节点
+ThreadNode* Prenode(ThreadNode *p){
+	//右子树中最左下结点
+	if(p->ltag == 0) return Prenode(p->lchild);
+	else return p->lchild;		//ltag==1直接返回后继线索
+}
+
+//有中序线索二叉树，可以实现逆向的中序遍历
+//对中序线索二叉树进行中序遍历（利用线索实现的非递归算法）
+void RevInorder(ThreadNode *T){
+	for(ThreadNode *p=Lastnode(T);p!=NULL;p=Prenode(p))
+		visit(p);
+}
+//同样的由于使用非递归，空间复杂度只有O(1)
+```
+
+#### 先序线索二叉树找先序后继
+
+- 若p->rtag == 1，则next = p->rchild
+- 若p->rtag == 0
+
+case1：若p有左孩子，则先序前驱为左孩子
+
+case2：若p没有左孩子，一定有右孩子，则先序前驱则先序后继为右孩子
+
+#### 先序线索二叉树找先序前驱
+
+- 若p->ltag == 1，则next = p->lchild
+- 若p->ltag == 0
+
+case1：如果能找到p的父结点，且p是左孩子，那么按照先序遍历，父结点即是p结点的前驱
+
+case2：如果能找到p的父结点，且p是右孩子，左兄弟为空，同样的父结点就是p的前驱
+
+case3：如果能找到p的父结点，且p是右孩子，且左兄弟非空，那么p的前驱是左兄弟的 优先右子树的 最靠下的叶子结点
+
+case4：如果p是根节点，则p没有先序前驱
+
+#### 后序线索二叉树找后序前驱
+
+- 若p->ltag == 1，则pre = p->lchild
+- 若p->ltag == 0
+
+case1：若p有右孩子，则后序前驱为右孩子
+
+case2：若p没有右孩子，则为左孩子
+
+#### 后序线索二叉树找后序后继
+
+类似的，假如改用三叉链表可以找到父结点
+
+case1：如果能找到p的父结点，且p是右孩子，则后继结点为父结点
+
+case2：如果能找到p的父结点，且p是左孩子，其右兄弟为空，则后继结点为父结点
+
+case3：如果能找到p的父结点，且p是左孩子，其右兄弟非空，则后继结点为右兄弟子树中，第一个被后序遍历的结点，即优先往左走，最下方的叶子结点
+
+case4：如果p是根节点，则p没有后序后继
+
+## 5.4树的存储结构，树、森林与二叉树的转换，以及树和森林的转换
 
 
 
