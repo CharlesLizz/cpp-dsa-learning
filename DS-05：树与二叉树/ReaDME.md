@@ -550,6 +550,8 @@ typedef struct{
 
 ## 5.3.2 二叉线索树及二叉树的线索化，以及在线索二叉树中找前驱后继
 
+### 线索二叉树的概念
+
 **前情提要**：共有n个结点的二叉树，一共有n+1个空链域
 
 #### 二叉线索树就是利用空链域来记录结点的前驱与后继
@@ -576,6 +578,102 @@ typedef struct ThreadNode{
 ```
 
 **Tip**：二叉树可以被称为二叉链表，同样的二叉线索树可以被称为是线索链表
+
+### 二叉树的线索化
+
+#### 中序线索化
+
+```c
+//中序遍历二叉树，一边遍历一边线索化
+void InThread（ThreadTree T）{			//中序遍历
+	if(T!=NULL){
+		InThread(T->lchild);
+		visit(T);
+		InThread(T->rchild);
+	}
+}
+//全局变量pre，指向当前访问的结点的前驱
+ThreadNode *pre = NULL
+
+void visit(ThreadNode *q){
+	if(q->lchild == NULL){
+		q->lchild = pre;
+		q->ltag = 1;
+	}
+	if(pre != NULL && pre->rchild == NULL){
+		pre->rchild = q;
+		pre->rtag = 1;
+	}
+	pre = q;
+}
+//最后还要检查pre的rchild是否为NULL，如果是，则令rtag=1
+```
+
+**Tip**：其实此处的中序线索化，只是在中序遍历的过程中，进行了一系列的处理操作
+
+#### 先序线索化
+
+类似于中序线索化，一边对结点进行处理，一边进行线索化
+
+```c
+//先序遍历二叉树，一边遍历一边线索化
+void InThread（ThreadTree T）{			//先序遍历
+	if(T!=NULL){
+		visit(T);
+		if(T->ltag == 0){			//lchild不是前驱线索
+			PreThread(T->lchild);
+		}
+		InThread(T->rchild);
+	}
+}
+//全局变量pre，指向当前访问的结点的前驱
+ThreadNode *pre = NULL
+
+void visit(ThreadNode *q){
+	if(q->lchild == NULL){
+		q->lchild = pre;
+		q->ltag = 1;
+	}
+	if(pre != NULL && pre->rchild == NULL){
+		pre->rchild = q;
+		pre->rtag = 1;
+	}
+	pre = q;
+}
+//最后还要检查pre的rchild是否为NULL，如果是，则令rtag=1
+```
+
+**Tip**：防止先序遍历中死循环，增加条件判断lchild不是前驱线索
+
+#### 后序线索化
+
+```c
+//后序遍历二叉树，一边遍历一边线索化
+void InThread（ThreadTree T）{			//中序遍历
+	if(T!=NULL){
+		InThread(T->lchild);
+		InThread(T->rchild);
+		visit(T);
+	}
+}
+//全局变量pre，指向当前访问的结点的前驱
+ThreadNode *pre = NULL
+
+void visit(ThreadNode *q){
+	if(q->lchild == NULL){
+		q->lchild = pre;
+		q->ltag = 1;
+	}
+	if(pre != NULL && pre->rchild == NULL){
+		pre->rchild = q;
+		pre->rtag = 1;
+	}
+	pre = q;
+}
+//最后还要检查pre的rchild是否为NULL，如果是，则令rtag=1
+```
+
+**Tip**：区别于前序与中序遍历，访问根节点时，左右子树肯定已经处理完了，不会再去处理线索化后的子树，所以不会出现死循环的情况
 
 
 
